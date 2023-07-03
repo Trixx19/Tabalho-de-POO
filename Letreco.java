@@ -8,7 +8,7 @@ private final int Max_Tentativas = 6;
 
 
 private Palpite[] Palpites;
-private ArrayList <String> Dicionario;
+private ArrayList <String> dicionario;
 private String palavra_secreta;
 
 public Letreco(){
@@ -16,11 +16,11 @@ public Letreco(){
 
 }
 
-    private void carregarDicionario() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(br_utf8.txt))) {
+    private void CarregarDicionario() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("br_utf8.txt"))) {
             String palavra;
             while ((palavra = reader.readLine()) != null) {
-                Dicionario.add(palavra.toLowerCase());
+                dicionario.add(palavra.toLowerCase());
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar o dicionário de palavra.");
@@ -30,7 +30,7 @@ public Letreco(){
 
     public void inicializarJogo() {
         Random random = new Random(System.currentTimeMillis());
-        this.palavra_secreta= Dicionario.get(random.nextInt(Dicionario.size()));
+        this.palavra_secreta= dicionario.get(random.nextInt(dicionario.size()));
         System.out.println("=====================");
         System.out.println("BEM-VINDO AO LETREXTO");
         System.out.println("=====================");
