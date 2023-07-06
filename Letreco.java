@@ -7,16 +7,16 @@ public class Letreco{
 private final int Max_Tentativas = 6;
 
 
-private Palpite[] Palpites;
+private Palpite[] palpites;
 private ArrayList <String> dicionario;
 private String palavra_secreta;
 
 public Letreco(){
-    this.Palpites = new Palpite[Max_Tentativas];
+    this.palpites = new Palpite[Max_Tentativas];
 
 }
 
-    private void CarregarDicionario() {
+    private void CarregarDicionario(){
         try (BufferedReader reader = new BufferedReader(new FileReader("br_utf8.txt"))) {
             String palavra;
             while ((palavra = reader.readLine()) != null) {
@@ -28,9 +28,14 @@ public Letreco(){
         }
     }
 
-    public void inicializarJogo() {
-        Random random = new Random(System.currentTimeMillis());
+     public void geraPalavraSecreta(){
+		Random random = new Random(System.currentTimeMillis());
         this.palavra_secreta= dicionario.get(random.nextInt(dicionario.size()));
+	}
+
+
+    public void inicializarJogo() {
+       // geraPalavraSecreta();
         System.out.println("=====================");
         System.out.println("BEM-VINDO AO LETREXTO");
         System.out.println("=====================");

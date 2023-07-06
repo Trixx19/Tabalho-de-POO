@@ -9,9 +9,6 @@ public Palpite(){
 
 }
 
-//public String setPalpite(String tentativa){
-  //  return this.Resposta=tentativa;
-//}
 
 public String setPalpite(String tentativa){
     boolean aux= verifica_palpite(tentativa);
@@ -23,6 +20,7 @@ public String setPalpite(String tentativa){
         Scanner scanner = new Scanner(System.in);
 
         String nova_tentativa = scanner.nextLine().toLowerCase();
+        scanner.close();
         return setPalpite(nova_tentativa);
     } else
         
