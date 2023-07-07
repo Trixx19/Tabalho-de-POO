@@ -1,36 +1,42 @@
 import java.util.Scanner;
 public class Palpite{
-    private String Resposta;
+    public String resposta;
 
 
 public Palpite(){
             
-    this.Resposta = " ";
-
+    this.resposta = "";
+    
 }
 
 
+//Recebe uma tentativa chama vericaPalpite caso não seja true ele avisa e pede que insira uma nova tentativa
+
+
 public String setPalpite(String tentativa){
-    boolean aux= verifica_palpite(tentativa);
+    boolean aux= this.verificaPalpite(tentativa);
 
     if(aux == false){
     System.out.println("Palpite invalido!!!, ultrapassou o número maximo de caracteres:"+tentativa);
-        System.out.println("/nInsira um novo palpite:");
+        System.out.println("\nInsira um novo palpite:");
 
         Scanner scanner = new Scanner(System.in);
 
         String nova_tentativa = scanner.nextLine().toLowerCase();
-        scanner.close();
         return setPalpite(nova_tentativa);
     } else
-        
-        return this.Resposta=tentativa;
+    
+    return this.resposta=tentativa;
         
     
 }
 
-public boolean verifica_palpite(String N_tentativa){
-     int cont=0;
+public String getPalpite(){
+    return this.resposta;
+}
+
+public boolean verificaPalpite(String N_tentativa){
+    int cont=0;
     for(int i=0; i<N_tentativa.length(); i++){
         if(Character.isLetter(N_tentativa.charAt(i))){
             cont++;
@@ -43,8 +49,5 @@ public boolean verifica_palpite(String N_tentativa){
         return true;
 }
 
-public String getPalpite(){
-    return this.Resposta;
-}
     
 }
