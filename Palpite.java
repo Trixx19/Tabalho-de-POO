@@ -17,7 +17,7 @@ public String setPalpite(String tentativa){
     boolean aux= this.verificaPalpite(tentativa);
 
     if(aux == false){
-    System.out.println("Palpite invalido!!!, ultrapassou o número maximo de caracteres:"+tentativa);
+    System.out.println("Palpite invalido!!!, o número maximo de caracteres é 5:"+tentativa);
         System.out.println("\nInsira um novo palpite:");
 
         Scanner scanner = new Scanner(System.in);
@@ -25,10 +25,9 @@ public String setPalpite(String tentativa){
         String nova_tentativa = scanner.nextLine().toLowerCase();
         return setPalpite(nova_tentativa);
     } else
-    
+    System.out.println("Seu palpite foi adicionado!");
     return this.resposta=tentativa;
-        
-    
+            
 }
 
 public String getPalpite(){
