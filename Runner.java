@@ -1,6 +1,7 @@
 public class Runner {
     public static void main(String[] args) {
-         Letreco jogo = new Letreco();
-         jogo.jogar();
+        Dicionario dicionario = new Dicionario();
+        Letreco letreco = new Letreco(dicionario);
+        letreco.jogar();
     }
 }

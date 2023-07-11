@@ -1,54 +1,30 @@
-import java.util.ArrayList;
-import java.util.Random;
+
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+
 public class Letreco{
-public final int maxTentativas = 6;
+    public final int maxTentativas = 6;
+    boolean condicaoDeParada = false;
 
+    public Palpite[] palpites;
+    private Dicionario dicionario;
+    private String palavraSecreta;
 
-public Palpite[] palpites;
-private ArrayList <String> dicionario;
-private String palavraSecreta;
-
-public Letreco(){
-    this.palpites = new Palpite[maxTentativas];
-    this.dicionario = new ArrayList<>();
-    carregarDicionario();
-    geraPalavraSecreta();
-
-}
-
-    // carrega o dicionario
-
-    private void carregarDicionario() {
-        File file = new File("br-utf8.txt");
- 
-        try (BufferedReader br = new BufferedReader(new FileReader(file)))
-        {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dicionario.add(line.toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Erro ao carregar o dicionário.");
-            e.printStackTrace();
-        }
+    public Letreco(Dicionario dicionario){
+        this.palpites = new Palpite[maxTentativas];
+        this.dicionario = dicionario;
+        //carregarDicionario();
+        geraPalavraSecreta();
     }
 
-    // Gera a palavra secreta!!
-     public void geraPalavraSecreta(){
-		Random random = new Random(System.currentTimeMillis());
-        this.palavraSecreta= dicionario.get(random.nextInt(dicionario.size()));
-	}
+   
 
-    public void verificaResposta(String tentativa) {
-        char[] linhaImpressao = {'#', '#', '#', '#', '#'};
+    
+    public void verificaResposta(String tentativa, Integer ntentativa) {
+        char[] linhaImpressao = {'*', '*', '*', '*', '*'};
         String palavraAux = this.palavraSecreta;
 
-        for (int i = 0; i < tentativa.length(); i++) {
+        for (int i = 0; i < tentativa.length()&& i < palavraAux.length(); i++) {
             if (Character.isLetter(tentativa.charAt(i))) {
                 if(tentativa.charAt(i) == palavraAux.charAt(i)){
                 linhaImpressao[i] = '+';
@@ -56,20 +32,26 @@ public Letreco(){
                 linhaImpressao[i] = '-';
                 }
             }
-            if(tentativa.equals(palavraAux)){
+        }
+        System.out.println("Seu feedback: " + new String(linhaImpressao));
+        if(tentativa.equals(palavraAux)){
             System.out.println("Parabéns! Você adivinhou a palavra "+ palavraSecreta +" corretamente!");
             System.out.println("Obrigado por jogar Letrexto!");
-            }
+            this.condicaoDeParada = true;
         }
-
-        System.out.println("Seu feedback: " + new String(linhaImpressao));
-
+        else if(ntentativa == 5){
+            System.out.println("suas tentativas esgotaram a palavra era " + palavraSecreta + " !");
+            //return false;
+        }
     }
 
+    private void geraPalavraSecreta() {
+        this.palavraSecreta = dicionario.obterPalavraAleatoria();
+    }
 
     public void inicializarJogo() {
         System.out.println("=====================");
-        System.out.println("BEM-VINDO AO LETRECO");
+        System.out.println("BEM-VINDO AO LETREXTO");
         System.out.println("=====================");
         System.out.println("Instruções:");
         System.out.println("- O computador escolherá uma palavra aleatória de cinco letras.");
@@ -80,13 +62,13 @@ public Letreco(){
         System.out.println("  Um \"*\" indica uma letra incorreta.");
         System.out.println("Vamos começar!\n");
     }
-    
+
+
     public void iniciarPartida() {
         
         Scanner scanner = new Scanner(System.in);
-        
         String aux = "";
-        for (int i = 0; i < maxTentativas; i++) {
+        for (int i = 0; i < maxTentativas && !condicaoDeParada; i++) {
             Palpite adPalpites= new Palpite();
 
             System.out.println("----- Insira seu palpite!!! -----");
@@ -95,28 +77,16 @@ public Letreco(){
             aux= scanner.nextLine().toLowerCase();
             adPalpites.setPalpite(aux);
             this.palpites[i] = adPalpites;
-           
-            verificaResposta(aux);
+            verificaResposta(aux,i);
             
-
             System.out.println();
         
         }
-        
-        
-        }
+    }
+
 
     public void jogar(){
         inicializarJogo();
         iniciarPartida();
-
-
     }
-
 }
-
-
-
-
-
-
