@@ -23,8 +23,8 @@ public Palpite(){
 
             Scanner scanner = new Scanner(System.in);
 
-            String nova_tentativa = scanner.nextLine().toLowerCase();
-            return setPalpite(nova_tentativa);
+            String novaTentativa = scanner.nextLine().toLowerCase();
+            return setPalpite(novaTentativa);
         }else
         
         System.out.println("Seu palpite foi adicionado!");
@@ -38,10 +38,10 @@ public Palpite(){
 
 // Verifica a resposta do usuario tem menos ou mais de 5 caracteres.
 
-    public boolean verificaPalpite(String N_tentativa){
+    public boolean verificaPalpite(String nTentativa){
     int cont=0;
-    for(int i=0; i<N_tentativa.length(); i++){
-        if(Character.isLetter(N_tentativa.charAt(i))){
+    for(int i=0; i<nTentativa.length(); i++){
+        if(Character.isLetter(nTentativa.charAt(i))){
             cont++;
         }
     }
